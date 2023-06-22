@@ -77,7 +77,11 @@
         if (@available(iOS 12.0, tvOS 12.0, *)) {
             return (SDGraphicsImageRendererFormatRange)self.uiformat.preferredRange;
         } else {
+#if TARGET_OS_XR
+            BOOL prefersExtendedRange = true;
+#else
             BOOL prefersExtendedRange = self.uiformat.prefersExtendedRange;
+#endif
             if (prefersExtendedRange) {
                 return SDGraphicsImageRendererFormatRangeExtended;
             } else {
@@ -98,6 +102,7 @@
         if (@available(iOS 12.0, tvOS 12.0, *)) {
             self.uiformat.preferredRange = (UIGraphicsImageRendererFormatRange)preferredRange;
         } else {
+#if !TARGET_OS_XR
             switch (preferredRange) {
                 case SDGraphicsImageRendererFormatRangeExtended:
                     self.uiformat.prefersExtendedRange = YES;
@@ -108,6 +113,7 @@
                     // Automatic means default
                     break;
             }
+#endif
         }
     } else {
         _preferredRange = preferredRange;
@@ -130,7 +136,11 @@
 #if SD_WATCH
             CGFloat screenScale = [WKInterfaceDevice currentDevice].screenScale;
 #elif SD_UIKIT
+#if TARGET_OS_XR
+            CGFloat screenScale = 2.0;
+#else
             CGFloat screenScale = [UIScreen mainScreen].scale;
+#endif
 #elif SD_MAC
             NSScreen *mainScreen = nil;
             if (@available(macOS 10.12, *)) {
@@ -170,7 +180,11 @@
 #if SD_WATCH
             CGFloat screenScale = [WKInterfaceDevice currentDevice].screenScale;
 #elif SD_UIKIT
+#if TARGET_OS_XR
+            CGFloat screenScale = 2.0;
+#else
             CGFloat screenScale = [UIScreen mainScreen].scale;
+#endif
 #elif SD_MAC
             NSScreen *mainScreen = nil;
             if (@available(macOS 10.12, *)) {

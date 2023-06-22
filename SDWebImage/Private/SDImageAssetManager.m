@@ -16,7 +16,11 @@ static NSArray *SDBundlePreferredScales(void) {
 #if SD_WATCH
         CGFloat screenScale = [WKInterfaceDevice currentDevice].screenScale;
 #elif SD_UIKIT
+#if TARGET_OS_XR
+        CGFloat screenScale = 2.0;
+#else
         CGFloat screenScale = [UIScreen mainScreen].scale;
+#endif
 #elif SD_MAC
       NSScreen *mainScreen = nil;
       if (@available(macOS 10.12, *)) {

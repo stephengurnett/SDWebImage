@@ -47,7 +47,6 @@
     #define SD_WATCH 0
 #endif
 
-
 #if SD_MAC
     #import <AppKit/AppKit.h>
     #ifndef UIImage
