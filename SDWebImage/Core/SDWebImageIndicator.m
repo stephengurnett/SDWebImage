@@ -39,12 +39,8 @@
 
 #if SD_UIKIT
 - (void)commonInit {
-    if (@available(iOS 13.0, *)) {
-        self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
-        self.indicatorView.color = [UIColor whiteColor];
-    } else {
-        self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    }
+    self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+    self.indicatorView.color = [UIColor whiteColor];
     self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 }
 #endif
@@ -86,12 +82,8 @@
     SDWebImageActivityIndicator *indicator = [SDWebImageActivityIndicator new];
 #if SD_UIKIT
 #if SD_IOS
-    if (@available(iOS 13.0, *)) {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
-        indicator.indicatorView.color = [UIColor lightGrayColor];
-    } else {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    }
+    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+    indicator.indicatorView.color = [UIColor lightGrayColor];
 #else
     indicator.indicatorView.color = [UIColor colorWithWhite:0 alpha:0.45]; // Color from `UIActivityIndicatorViewStyleGray`
 #endif
@@ -105,7 +97,7 @@
     SDWebImageActivityIndicator *indicator = SDWebImageActivityIndicator.grayIndicator;
 #if SD_UIKIT
     UIColor *grayColor = indicator.indicatorView.color;
-    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
     indicator.indicatorView.color = grayColor;
 #else
     indicator.indicatorView.appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua]; // Disable dark mode support
@@ -118,12 +110,8 @@
 + (SDWebImageActivityIndicator *)whiteIndicator {
     SDWebImageActivityIndicator *indicator = [SDWebImageActivityIndicator new];
 #if SD_UIKIT
-    if (@available(iOS 13.0, *)) {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
-        indicator.indicatorView.color = [UIColor whiteColor];
-    } else {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    }
+    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+    indicator.indicatorView.color = [UIColor whiteColor];
 #else
     indicator.indicatorView.appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua]; // Disable dark mode support
     CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
@@ -137,13 +125,8 @@
 + (SDWebImageActivityIndicator *)whiteLargeIndicator {
     SDWebImageActivityIndicator *indicator = SDWebImageActivityIndicator.whiteIndicator;
 #if SD_UIKIT
-    if (@available(iOS 13.0, *)) {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
-        indicator.indicatorView.color = [UIColor whiteColor];
-    } else {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    }
-
+    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
+    indicator.indicatorView.color = [UIColor whiteColor];
 #else
     indicator.indicatorView.appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua]; // Disable dark mode support
     indicator.indicatorView.controlSize = NSControlSizeRegular;
@@ -155,11 +138,7 @@
 + (SDWebImageActivityIndicator *)largeIndicator {
     SDWebImageActivityIndicator *indicator = [SDWebImageActivityIndicator new];
 #if SD_UIKIT
-    if (@available(iOS 13.0, tvOS 13.0, *)) {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
-    } else {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    }
+    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
 #else
     indicator.indicatorView.controlSize = NSControlSizeRegular;
     [indicator.indicatorView sizeToFit];
@@ -170,11 +149,7 @@
 + (SDWebImageActivityIndicator *)mediumIndicator {
     SDWebImageActivityIndicator *indicator = [SDWebImageActivityIndicator new];
 #if SD_UIKIT
-    if (@available(iOS 13.0, tvOS 13.0, *)) {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
-    } else {
-        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-    }
+    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
 #else
     indicator.indicatorView.controlSize = NSControlSizeSmall;
     [indicator.indicatorView sizeToFit];
