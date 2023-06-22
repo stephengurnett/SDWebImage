@@ -38,13 +38,15 @@
 }
 
 #if SD_UIKIT
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)commonInit {
-    self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    if (@available(iOS 13.0, *)) {
+        self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+        self.indicatorView.color = [UIColor whiteColor];
+    } else {
+        self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    }
     self.indicatorView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
 }
-#pragma clang diagnostic pop
 #endif
 
 #if SD_MAC
@@ -79,13 +81,17 @@
 
 @implementation SDWebImageActivityIndicator (Conveniences)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 + (SDWebImageActivityIndicator *)grayIndicator {
     SDWebImageActivityIndicator *indicator = [SDWebImageActivityIndicator new];
 #if SD_UIKIT
 #if SD_IOS
-    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    if (@available(iOS 13.0, *)) {
+        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+        indicator.indicatorView.color = [UIColor lightGrayColor];
+    } else {
+        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    }
 #else
     indicator.indicatorView.color = [UIColor colorWithWhite:0 alpha:0.45]; // Color from `UIActivityIndicatorViewStyleGray`
 #endif
@@ -112,7 +118,12 @@
 + (SDWebImageActivityIndicator *)whiteIndicator {
     SDWebImageActivityIndicator *indicator = [SDWebImageActivityIndicator new];
 #if SD_UIKIT
-    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    if (@available(iOS 13.0, *)) {
+        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleMedium;
+        indicator.indicatorView.color = [UIColor whiteColor];
+    } else {
+        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    }
 #else
     indicator.indicatorView.appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua]; // Disable dark mode support
     CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
@@ -126,7 +137,13 @@
 + (SDWebImageActivityIndicator *)whiteLargeIndicator {
     SDWebImageActivityIndicator *indicator = SDWebImageActivityIndicator.whiteIndicator;
 #if SD_UIKIT
-    indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    if (@available(iOS 13.0, *)) {
+        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
+        indicator.indicatorView.color = [UIColor whiteColor];
+    } else {
+        indicator.indicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
+    }
+
 #else
     indicator.indicatorView.appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua]; // Disable dark mode support
     indicator.indicatorView.controlSize = NSControlSizeRegular;
@@ -164,7 +181,6 @@
 #endif
     return indicator;
 }
-#pragma clang diagnostic pop
 
 @end
 
